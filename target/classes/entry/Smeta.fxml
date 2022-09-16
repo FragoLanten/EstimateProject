@@ -34,6 +34,7 @@
             <TextField layoutX="28.0" layoutY="128.0" prefHeight="30.0" prefWidth="564.0" />
             <TextField fx:id="total_costs" layoutX="337.0" layoutY="398.0" prefHeight="30.0" prefWidth="59.0" />
             <Label layoutX="408.0" layoutY="398.0" prefHeight="30.0" prefWidth="47.0" text="Руб." />
+            <Button fx:id="save_button" layoutX="28.0" layoutY="547.0" mnemonicParsing="false" onAction="#handleSaveButton" text="Сохранить" />
             </children></AnchorPane>
     </content>
 </ScrollPane>

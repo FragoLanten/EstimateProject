@@ -49,22 +49,7 @@ public class StartMenuController {
 
     @FXML
     void initialize() {
-//        create_button.setOnAction(event -> {
-//            create_button.getScene().getWindow().hide();
-//
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(getClass().getResource("/entry/total.fxml"));
-//            try {
-//                loader.load();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            Parent root = loader.getRoot();
-//            Stage stage = new Stage();
-//            stage.setScene(new Scene(root));
-//            stage.showAndWait();
-//
-//        });
+
 
     }
 
