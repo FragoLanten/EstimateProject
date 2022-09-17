@@ -1,15 +1,16 @@
 package entry;
 
 import java.io.File;
-import java.io.StringWriter;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -25,6 +26,18 @@ public class SmetaController {
 
     @FXML
     private Button calculate_costs_button;
+
+    @FXML
+    private MenuItem exit_button;
+
+    @FXML
+    private MenuItem load_button;
+
+    @FXML
+    private MenuItem save_as_button;
+
+    @FXML
+    private MenuItem save_button;
 
     @FXML
     private TextField text_air_duct;
@@ -67,12 +80,46 @@ public class SmetaController {
         total_costs.setText(Integer.toString(smeta.totalCosts));
     }
 
-    public void handleSaveButton(ActionEvent actionEvent) throws JAXBException {
-        StringWriter stringWriter = new StringWriter();
-        File file = new File("D:\\test\\test.xml");
+    public void handleSaveAsButton(ActionEvent actionEvent) throws JAXBException {
+        Stage stage = (Stage) calculate_costs_button.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        smeta.fileSource = fileChooser.showSaveDialog(stage);
+
         JAXBContext context = JAXBContext.newInstance(Smeta.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.marshal(smeta, stringWriter);
+        marshaller.marshal(smeta, smeta.fileSource);
+
+    }
+
+    public void handleSaveButton(ActionEvent actionEvent) throws JAXBException {
+        if (smeta.fileSource==null) {
+            Stage stage = (Stage) calculate_costs_button.getScene().getWindow();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialFileName("smeta.xml");
+            fileChooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("XML files", "*.xml")
+            );
+            smeta.fileSource = fileChooser.showSaveDialog(stage);
+
+            JAXBContext context = JAXBContext.newInstance(Smeta.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.marshal(smeta, smeta.fileSource);
+        }
+        else {
+            JAXBContext context = JAXBContext.newInstance(Smeta.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.marshal(smeta, smeta.fileSource);
+        }
+    }
+
+    public void handleLoadButton(ActionEvent actionEvent) {
+    }
+
+    public void handleExitButton(ActionEvent actionEvent) {
+        Stage stage = (Stage) calculate_costs_button.getScene().getWindow();
+        stage.close();
     }
 }

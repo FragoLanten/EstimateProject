@@ -4,6 +4,8 @@ module entry.newsmetaproject {
     requires java.xml.bind;
 
 
-    opens entry to javafx.fxml;
+    opens entry to javafx.fxml, java.xml.bind;
     exports entry;
+
+
 }
